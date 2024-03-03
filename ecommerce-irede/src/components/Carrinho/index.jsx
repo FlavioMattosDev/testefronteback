@@ -34,15 +34,13 @@ export default function Carrinho() {
     setIsCartOpen(false);
   };
 
-
   const handleEmptyCart = () => {
-    setProducts([]); 
+    setProducts([]);
   };
-
 
   const handleCheckout = () => {
     window.location.href = '/meuspedidos';
-    closeCart(); 
+    closeCart();
   };
 
   return (
@@ -82,8 +80,7 @@ export default function Carrinho() {
                   R${' '}
                   {products
                     .reduce(
-                      (total, product) =>
-                        total + parseFloat(product.price.replace(',', '.')),
+                      (total, product) => total + parseFloat(product.price),
                       0
                     )
                     .toFixed(2)}
@@ -92,13 +89,13 @@ export default function Carrinho() {
               <div className="flex justify-evenly items-center py-2 gap-3">
                 <button
                   className="text-stone-500 text-xs py-2 hover:text-orange-600"
-                  onClick={handleEmptyCart} 
+                  onClick={handleEmptyCart}
                 >
                   Esvaziar
                 </button>
                 <button
                   className="bg-blue-900 w-32 text-white text-xs px-4 py-2 rounded-lg hover:bg-blue-600"
-                  onClick={handleCheckout} 
+                  onClick={handleCheckout}
                 >
                   Finalizar Comprar
                 </button>

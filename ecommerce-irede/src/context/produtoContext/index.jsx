@@ -1,31 +1,33 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useState } from 'react';
+import product from '/src/assets/img-shoes-card.png';
 
-export const ProductContext = createContext(null);
+export const ProductContext = createContext([]);
 
-export const ProductProvider = ({ children }) => {
-  const [products, setProducts] = useState([]);
-  const [error, setError] = useState(null);
-
-  const fetchProducts = async () => {
-    try {
-      const response = await fetch('http://localhost:5000/produtos'); // Corrigido para a porta correta
-      if (!response.ok) {
-        throw new Error('Não foi possível obter os produtos');
-      }
-      const data = await response.json();
-      setProducts(data);
-    } catch (error) {
-      setError(error.message);
-    }
-  };
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
+export function ProductProvider({ children }) {
+  const [products, setProducts] = useState([
+    {
+      id: 1,
+      name: 'Nique Air Surf',
+      image: product,
+      category: 'Tênis',
+      price: '200,00',
+      quantity: 2,
+      status: 'Finalizado',
+    },
+    {
+      id: 2,
+      name: 'Blusa do Goku',
+      image: product,
+      category: 'Camiseta',
+      price: '999,00',
+      quantity: 15,
+      status: 'Esperando Pagamento',
+    },
+  ]);
 
   return (
-    <ProductContext.Provider value={{ products, setProducts, error }}>
+    <ProductContext.Provider value={{ products, setProducts }}>
       {children}
     </ProductContext.Provider>
   );
-};
+}

@@ -1,12 +1,11 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {
-  Navigate,
   RouterProvider,
   createBrowserRouter,
 } from 'react-router-dom';
 import App from './App.jsx';
-import { UserContext, UserProvider } from './context/usuarioContext';
+import { UserProvider } from './context/usuarioContext';
 import './index.css';
 import Cadastro from './pages/Cadastro/index.jsx';
 import Categorias from './pages/Categorias/index.jsx';
@@ -18,12 +17,6 @@ import MeusPedidos from './pages/MeusPedidos/index.jsx';
 import Produtos from './pages/Produtos/index.jsx';
 
 const Main = () => {
-  const [isAuth, setIsAuth] = useState(false);
-  const user = useContext(UserContext);
-
-  useEffect(() => {
-    setIsAuth(!!user);
-  }, [user]);
 
   const router = createBrowserRouter([
     {
@@ -37,7 +30,7 @@ const Main = () => {
         },
         {
           path: '/cadastro',
-          element: isAuth ? <Navigate to="/" /> : <Cadastro />,
+          element: <Cadastro />,
         },
         {
           path: '/login',
@@ -57,7 +50,7 @@ const Main = () => {
         },
         {
           path: '/meuspedidos',
-          element: isAuth ? <MeusPedidos /> : <Navigate to="/login" />,
+          element: <MeusPedidos />,
         },
         {
           path: '/detalhesProduto',

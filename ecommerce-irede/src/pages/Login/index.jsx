@@ -1,6 +1,6 @@
-import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../../axiosConfig'; // Importe o axiosInstance do arquivo axiosconfig.js
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -20,10 +20,14 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Envie os dados do formulário para a rota de login no backend
-      await axios.post('http://localhost:5000/login', formData);
+      const response = await axiosInstance.post(
+        // Use axiosInstance em vez de axios
+        '/login',
+        formData
+      );
+      const { token } = response.data;
+      localStorage.setItem('token', token);
       console.log('Usuário logado com sucesso!');
-      // Limpe os campos do formulário após o login bem-sucedido
       setFormData({
         email: '',
         senha: '',
