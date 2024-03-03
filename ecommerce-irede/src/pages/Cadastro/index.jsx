@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Cadastro() {
   const [formData, setFormData] = useState({
@@ -95,9 +96,11 @@ export default function Cadastro() {
             </form>
             <div className="flex justify-center bg-white mx-2 pt-3 px-[22px] pb-9">
               <p className="">Já possui cadastro?</p>
+              <Link to="/login">
               <a className="pl-1 text-orange-500" href="#">
                 Clique aqui
               </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -159,9 +162,11 @@ export default function Cadastro() {
             </form>
             <div className="flex justify-center mt-[10px]">
               <p className="">Já possui cadastro?</p>
+              <Link to="/login">
               <a className="pl-1 text-orange-500" href="#">
                 Clique aqui
               </a>
+              </Link>
             </div>
           </div>
           <div className="bg-blue-900 flex w-1/2 h-screen">
