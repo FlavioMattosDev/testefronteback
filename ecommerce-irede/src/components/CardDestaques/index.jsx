@@ -1,18 +1,27 @@
 import { useContext } from 'react';
 import { ProductContext } from '../../context/produtoContext';
-import { CartContext } from '../../context/carrinhoContext'; // Importe o contexto do carrinho
+import { CartContext } from '../../context/carrinhoContext';
 
 function CardDestaques() {
   const { products } = useContext(ProductContext);
-  const { cart, setCart } = useContext(CartContext); // Use o contexto do carrinho
+  const { cart, setCart } = useContext(CartContext);
 
   const handleAddToCart = (product) => {
-    console.log('Adicionando ao carrinho:', product); // Adicione este console.log para verificar os dados do produto
-    const updatedCart = {
-      ...cart,
-      products: [...cart.products, { ...product, quantity: 1 }] // Adicione o produto ao carrinho com quantidade inicial de 1
-    };
-    setCart(updatedCart); // Atualize o estado do carrinho
+    console.log('Adicionando ao carrinho:', product);
+
+    const existingProductIndex = cart.products.findIndex((p) => p.id === product.id);
+
+    if (existingProductIndex !== -1) {
+      const updatedCart = { ...cart };
+      updatedCart.products[existingProductIndex].quantity += 1;
+      setCart(updatedCart);
+    } else {
+      const updatedCart = {
+        ...cart,
+        products: [...cart.products, { ...product, quantity: 1 }]
+      };
+      setCart(updatedCart);
+    }
   };
 
   return (

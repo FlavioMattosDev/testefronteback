@@ -1,5 +1,4 @@
 import { useContext, useState } from 'react';
-import { ProductContext } from '../../context/produtoContext';
 import { CartContext } from '../../context/carrinhoContext'; // Importar o contexto do carrinho
 
 function CartItem({ name, category, price, image, quantity }) {
@@ -13,17 +12,17 @@ function CartItem({ name, category, price, image, quantity }) {
             {category}
           </p>
           <p className="text-xs font-semibold">R$ {price}</p>
-          <p className="text-xs font-semibold text-stone-500">
-            Qtd: {quantity}
-          </p>
+          <p className="text-xs font-semibold">Qtd: {quantity}</p>{' '}
+          {/* Adicionando a quantidade */}
         </div>
       </div>
     </div>
   );
 }
 
+// No componente Carrinho
 export default function Carrinho() {
-  const { cart, setCart } = useContext(CartContext);
+  const { cart, setCart, addToCart } = useContext(CartContext);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   const openCart = () => {
@@ -69,14 +68,16 @@ export default function Carrinho() {
                   <CartItem
                     key={product.id}
                     name={product.nome}
-                    category={product.categoria} // Corrigido para 'categoria'
-                    price={parseFloat(product.preco)} // Corrigido para converter para número
-                    image={product.imagem} // Corrigido para 'imagem'
-                    quantity={product.quantidade} // Corrigido para 'quantidade'
+                    category={product.categoria}
+                    price={parseFloat(product.preco)}
+                    image={product.imagem}
+                    quantity={product.quantity} // Passando a quantidade para o CartItem
                   />
                 ))
               ) : (
-                <p className="p-4">Você não possui itens adicionados ao carrinho</p>
+                <p className="p-4">
+                  Você não possui itens adicionados ao carrinho
+                </p>
               )}
               <div className="flex py-6 justify-center gap-3 border-stone-900 border-t-2">
                 <p className="font-semibold">Valor total:</p>
@@ -84,7 +85,8 @@ export default function Carrinho() {
                   R${' '}
                   {cart.products
                     .reduce(
-                      (total, product) => total + parseFloat(product.preco), // Corrigido para 'preco'
+                      (total, product) =>
+                        total + parseFloat(product.preco) * product.quantity, // Multiplicando pelo quantidade
                       0
                     )
                     .toFixed(2)}
