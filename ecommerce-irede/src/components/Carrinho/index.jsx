@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react';
 import { ProductContext } from '../../context/produtoContext';
+import { CartContext } from '../../context/carrinhoContext'; // Importar o contexto do carrinho
 
 function CartItem({ name, category, price, image, quantity }) {
   return (
@@ -22,9 +23,8 @@ function CartItem({ name, category, price, image, quantity }) {
 }
 
 export default function Carrinho() {
-  const { products, setProducts } = useContext(ProductContext);
+  const { cart, setCart } = useContext(CartContext);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [cartCount, setCartCount] = useState(0);
 
   const openCart = () => {
     setIsCartOpen(true);
@@ -35,7 +35,7 @@ export default function Carrinho() {
   };
 
   const handleEmptyCart = () => {
-    setProducts([]);
+    setCart({ products: [] });
   };
 
   const handleCheckout = () => {
@@ -64,23 +64,27 @@ export default function Carrinho() {
               </button>
             </div>
             <div className="divide-y">
-              {products.map((product) => (
-                <CartItem
-                  key={product.id}
-                  name={product.name}
-                  category={product.category}
-                  price={product.price}
-                  image={product.image}
-                  quantity={product.quantity}
-                />
-              ))}
+              {cart.products.length > 0 ? (
+                cart.products.map((product) => (
+                  <CartItem
+                    key={product.id}
+                    name={product.nome}
+                    category={product.categoria} // Corrigido para 'categoria'
+                    price={parseFloat(product.preco)} // Corrigido para converter para número
+                    image={product.imagem} // Corrigido para 'imagem'
+                    quantity={product.quantidade} // Corrigido para 'quantidade'
+                  />
+                ))
+              ) : (
+                <p className="p-4">Você não possui itens adicionados ao carrinho</p>
+              )}
               <div className="flex py-6 justify-center gap-3 border-stone-900 border-t-2">
                 <p className="font-semibold">Valor total:</p>
                 <p className="font-semibold text-blue-900">
                   R${' '}
-                  {products
+                  {cart.products
                     .reduce(
-                      (total, product) => total + parseFloat(product.price),
+                      (total, product) => total + parseFloat(product.preco), // Corrigido para 'preco'
                       0
                     )
                     .toFixed(2)}
@@ -97,7 +101,7 @@ export default function Carrinho() {
                   className="bg-blue-900 w-32 text-white text-xs px-4 py-2 rounded-lg hover:bg-blue-600"
                   onClick={handleCheckout}
                 >
-                  Finalizar Comprar
+                  Finalizar Compra
                 </button>
               </div>
             </div>
