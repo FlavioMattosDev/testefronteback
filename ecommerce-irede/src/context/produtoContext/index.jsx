@@ -1,32 +1,29 @@
-import { createContext, useState } from 'react';
-import product from '/src/assets/img-shoes-card.png';
+import { createContext, useEffect, useState } from 'react';
 
 export const ProductContext = createContext([]);
 
 export function ProductProvider({ children }) {
-  const [products, setProducts] = useState([
-    {
-      id: 1,
-      name: 'Nique Air Surf',
-      image: product,
-      category: 'Tênis',
-      price: '200,00',
-      quantity: 2,
-      status: 'Finalizado',
-    },
-    {
-      id: 2,
-      name: 'Blusa do Goku',
-      image: product,
-      category: 'Camiseta',
-      price: '999,00',
-      quantity: 15,
-      status: 'Esperando Pagamento',
-    },
-  ]);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const response = await fetch('http://localhost:5000/produtos');
+        if (!response.ok) {
+          throw new Error('Falha ao obter os produtos');
+        }
+        const data = await response.json();
+        setProducts(data);
+      } catch (error) {
+        console.error('Erro ao obter produtos:', error);
+      }
+    }
+
+    fetchProducts();
+  }, []);
 
   return (
-    <ProductContext.Provider value={{ products, setProducts }}>
+    <ProductContext.Provider value={{ products }}>
       {children}
     </ProductContext.Provider>
   );
