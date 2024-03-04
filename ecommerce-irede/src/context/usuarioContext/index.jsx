@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState, useContext } from 'react';
 
 export const UserContext = createContext();
 
@@ -35,4 +35,13 @@ export const UserProvider = ({ children }) => {
       {children}
     </UserContext.Provider>
   );
+};
+
+// Adicione esta função para obter o contexto de usuário fora do componente
+export const useAuth = () => {
+  const context = useContext(UserContext);
+  if (context === undefined) {
+    throw new Error('useAuth must be used within a UserProvider');
+  }
+  return context;
 };

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axiosInstance from '../../axiosConfig'; // Importe o axiosInstance do arquivo axiosconfig.js
+import { useAuth } from '../../context/usuarioContext';
+import axiosInstance from '../../axiosConfig';
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -8,7 +9,16 @@ export default function Login() {
     senha: '',
   });
 
+  const handleLogout = () => {
+    // Realiza o logout do usuário e redireciona para a página de login
+    logoutUser();
+    localStorage.removeItem('token'); // Limpa o token de autenticação
+    navigate('/login'); // Redireciona para a página de login
+  };
+
+  const { loginUser } = useAuth();
   const navigate = useNavigate();
+  const { logoutUser } = useAuth();
 
   const handleChange = (e) => {
     setFormData({
@@ -20,13 +30,12 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axiosInstance.post(
-        // Use axiosInstance em vez de axios
-        '/login',
-        formData
-      );
+      const response = await axiosInstance.post('/login', formData);
       const { token } = response.data;
       localStorage.setItem('token', token);
+
+      loginUser({ email: formData.email });
+
       console.log('Usuário logado com sucesso!');
       setFormData({
         email: '',
@@ -147,6 +156,7 @@ export default function Login() {
                 Cadastre-se aqui
               </a>
             </div>
+            <button onClick={handleLogout}>Logout</button>
           </div>
           <div className="bg-blue-900 flex w-1/2 h-screen">
             <div className="flex flex-col justify-center items-center mx-auto gap-7">
