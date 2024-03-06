@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useAuth } from '../../context/usuarioContext';
 import Carrinho from '../Carrinho';
 import NavbarMobile from '../NavbarMobile';
 
 export default function Header() {
   const location = useLocation();
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const [user, setUser] = useState(null);
+  const { user } = useAuth();
 
   const hideHeader =
     location.pathname === '/login' || location.pathname === '/cadastro';
@@ -15,6 +14,7 @@ export default function Header() {
   }
 
   return (
+    // mobile
     <header className="bg-blue-900 ">
       <div className="md:hidden pb-8">
         <div className="mx-8 pt-9 flex justify-between">
@@ -43,6 +43,7 @@ export default function Header() {
         </div>
       </div>
 
+      {/* Desktop */}
       <div className="hidden md:block md:pb-11 md:pt-9">
         <div className="mx-8 flex justify-around items-center">
           <div className="w-[18.1rem]">
@@ -72,11 +73,11 @@ export default function Header() {
             {user ? (
               <div className="flex items-center justify-center gap-5">
                 <img
-                  src={user.avatar}
+                  src="https://www.pngall.com/wp-content/uploads/5/Profile-Avatar-PNG.png"
                   alt={user.name}
                   className="h-10 w-10 rounded-full hidden lg:block"
                 />
-                <h1 className="hidden lg:block">Olá, {user.name}</h1>
+                <h1 className="hidden text-zinc-50 lg:block">Olá, Fulano</h1>
               </div>
             ) : (
               <>
