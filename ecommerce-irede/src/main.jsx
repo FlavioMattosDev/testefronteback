@@ -49,6 +49,10 @@ const Main = () => {
           element: <DetalhesProduto />,
         },
         {
+          path: '/produtos/detalhesproduto',
+          element: <DetalhesProduto />,
+        },
+        {
           path: '/meuspedidos',
           element: <MeusPedidos />,
         },

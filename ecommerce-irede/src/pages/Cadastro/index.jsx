@@ -21,7 +21,6 @@ export default function Cadastro() {
     try {
       await axios.post('http://localhost:5000/usuarios', formData);
       console.log('Usuário cadastrado com sucesso!');
-      // Limpar o formulário após o cadastro bem-sucedido
       setFormData({
         nome: '',
         email: '',

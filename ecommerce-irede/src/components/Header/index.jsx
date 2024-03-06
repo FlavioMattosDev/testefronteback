@@ -6,7 +6,7 @@ import NavbarMobile from '../NavbarMobile';
 export default function Header() {
   const location = useLocation();
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [user, setUser] = useState(null); // Defina o estado do usuário
+  const [user, setUser] = useState(null);
 
   const hideHeader =
     location.pathname === '/login' || location.pathname === '/cadastro';

@@ -6,11 +6,10 @@ export default function MeusPedidos() {
           <select
             id="categoria"
             name="categoria"
-            defaultValue="tenis" // Alteração aqui
+            defaultValue="tenis"
             className="mt-1 block w-full py-2 px-3 border text-zinc-50 bg-orange-500 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
           >
             <option value="tenis">Meus Pedidos</option>{' '}
-            {/* Removido selected */}
             <option value="blusa">Minhas Informações</option>
           </select>
         </div>

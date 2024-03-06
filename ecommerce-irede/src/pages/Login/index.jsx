@@ -10,10 +10,9 @@ export default function Login() {
   });
 
   const handleLogout = () => {
-    // Realiza o logout do usuário e redireciona para a página de login
     logoutUser();
-    localStorage.removeItem('token'); // Limpa o token de autenticação
-    navigate('/login'); // Redireciona para a página de login
+    localStorage.removeItem('token'); 
+    navigate('/login');
   };
 
   const { loginUser } = useAuth();

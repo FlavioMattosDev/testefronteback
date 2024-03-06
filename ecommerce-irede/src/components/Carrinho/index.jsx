@@ -20,7 +20,6 @@ function CartItem({ name, category, price, image, quantity }) {
   );
 }
 
-// No componente Carrinho
 export default function Carrinho() {
   const { cart, setCart, addToCart } = useContext(CartContext);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -71,7 +70,7 @@ export default function Carrinho() {
                     category={product.categoria}
                     price={parseFloat(product.preco)}
                     image={product.imagem}
-                    quantity={product.quantity} // Passando a quantidade para o CartItem
+                    quantity={product.quantity}
                   />
                 ))
               ) : (
@@ -86,7 +85,7 @@ export default function Carrinho() {
                   {cart.products
                     .reduce(
                       (total, product) =>
-                        total + parseFloat(product.preco) * product.quantity, // Multiplicando pelo quantidade
+                        total + parseFloat(product.preco) * product.quantity,
                       0
                     )
                     .toFixed(2)}

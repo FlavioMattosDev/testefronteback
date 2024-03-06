@@ -37,7 +37,6 @@ export const UserProvider = ({ children }) => {
   );
 };
 
-// Adicione esta função para obter o contexto de usuário fora do componente
 export const useAuth = () => {
   const context = useContext(UserContext);
   if (context === undefined) {

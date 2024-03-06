@@ -25,6 +25,7 @@ app.post('/usuarios', async (req, res) => {
     }
 });
 
+// Rota de login de usuários
 app.post('/login', async (req, res) => {
   const { email, senha } = req.body;
 
@@ -41,7 +42,7 @@ app.post('/login', async (req, res) => {
       }
 
       // Se as credenciais estiverem corretas, gerar e enviar o token JWT
-      const token = jwt.sign({ id: user.rows[0].id, email: user.rows[0].email }, 'secreto', { expiresIn: '1h' });
+      const token = jwt.sign({ id: user.rows[0].id, email: user.rows[0].email }, 'secret', { expiresIn: '1h' });
 
       res.status(200).json({ token });
   } catch (error) {

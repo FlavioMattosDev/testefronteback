@@ -8,7 +8,7 @@ export default function Categorias() {
     fetch('http://localhost:5000/categorias')
       .then((response) => response.json())
       .then((data) => {
-        setCategorias(data); // Define as categorias recebidas da API
+        setCategorias(data);
       })
       .catch((error) => console.error('Erro ao buscar categorias:', error));
   }, []);

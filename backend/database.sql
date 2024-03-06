@@ -36,3 +36,10 @@ CREATE TABLE itens (
     quantidade INT NOT NULL,
     preco NUMERIC(10, 2) NOT NULL
 );
+
+ALTER TABLE produtos
+ADD COLUMN descricao TEXT;
+
+UPDATE produtos
+SET descricao = 'Descrição do produto'
+WHERE id = produto_id;
